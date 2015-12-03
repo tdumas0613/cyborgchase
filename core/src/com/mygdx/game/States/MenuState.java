@@ -23,7 +23,7 @@ public class MenuState extends State{
         if(Gdx.input.justTouched()){
             gsm.set(new PlayState(gsm));
             //dispose textures to prevent memory leaks
-            dispose();
+
         }
     }
     @Override
@@ -48,5 +48,6 @@ public class MenuState extends State{
     public void dispose() {
         background.dispose();
         playBtn.dispose();
+        System.out.println("Play State Disposed");
     }
 }

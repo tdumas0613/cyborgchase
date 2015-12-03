@@ -34,7 +34,7 @@ public class Monkey {
 
         posTopMonkey = new Vector2(x, rand.nextInt(FLUCTUATION) + MONKEYGAP + LOWESTOPENING);
         posBottomMonkey = new Vector2(x, posTopMonkey.y - MONKEYGAP - bottomMonkey.getHeight());
-        //not typecasted in tutorial
+
         boundsTop = new Rectangle(posTopMonkey.x, posTopMonkey.y, topMonkey.getWidth(), topMonkey.getHeight());
         boundsBot = new Rectangle(posBottomMonkey.x, posBottomMonkey.y, bottomMonkey.getWidth(), bottomMonkey.getHeight());
     }
@@ -66,5 +66,9 @@ public class Monkey {
     }
     public boolean collides(Rectangle player){
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
+    }
+    public void dispose(){
+        topMonkey.dispose();
+        bottomMonkey.dispose();
     }
 }

@@ -64,4 +64,7 @@ public class Girl {
     public Rectangle getBounds(){
         return bounds;
     }
+    public void dispose(){
+        girl.dispose();
+    }
 }
