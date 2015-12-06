@@ -51,15 +51,17 @@ public class Girl {
     }
 
     public Vector3 getPosition() {
+
         return position;
     }
 
     public Texture getTexture() {
+
         return girl;
     }
 
     public void jump(){
-        velocity.y = 400;
+        velocity.y = 700;
     }
     public Rectangle getBounds(){
         return bounds;

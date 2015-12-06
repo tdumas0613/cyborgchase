@@ -12,7 +12,8 @@ import com.mygdx.game.Sprites.Monkey;
 
 
 public class PlayState extends State {
-    private static final int MONKEYSPACING = 125;
+    //distance between each monkey
+    private static final float MONKEYSPACING = 400;
     private static final int MONKEYCOUNT = 4;
     private static final int GROUNDYOFFSET = -50;
 
@@ -32,16 +33,18 @@ public class PlayState extends State {
         //creating background for play state
         bg = new Texture("background.png");
         ground = new Texture("land.png");
+
         //cam.position.x line is probably wrong --- tutorial 12
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUNDYOFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2)+ ground.getWidth(), GROUNDYOFFSET);
-        monkeys = new Array<Monkey>();
 
+        monkeys = new Array<Monkey>();
         for(int i = 1; i <= MONKEYCOUNT; i++){
             monkeys.add(new Monkey(i * (MONKEYSPACING + Monkey.MONKEYWIDTH)));
         }
     }
 
+    //call jump function on screen touch
     @Override
     protected void handleInput() {
         if(Gdx.input.justTouched()){
@@ -54,15 +57,15 @@ public class PlayState extends State {
         handleInput();
         updateGround();
         girl.update(dt);
-        cam.position.x = girl.getPosition().x + 80;
-
+        cam.position.x = girl.getPosition().x + 275;
+        //what to do with monkey image after it exits left side of screen
         for(int i=0; i < monkeys.size; i++) {
             Monkey monkey = monkeys.get(i);
-            //This line is different than the line T created below
+            //general forumula for random boundaries: (int)(Math.random() * ((upperbound - lowerbound) + 1) + lowerbound);
             if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + monkey.getTopMonkey().getWidth()) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
             }
-
+            //if game ends, start new PlayState
             if(monkey.collides(girl.getBounds())){
                 gsm.set(new PlayState(gsm));
             }
@@ -78,15 +81,14 @@ public class PlayState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         //drawing background
-        //done differently in tutorial, however bg did not fit tablet screen
-        sb.draw(bg, 0, 0, cam.viewportWidth, cam.viewportHeight);
+        sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
+        sb.draw(ground, groundPos1.x, groundPos1.y);
+        sb.draw(ground, groundPos2.x, groundPos2.y);
         sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
         for(Monkey monkey : monkeys) {
             sb.draw(monkey.getTopMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
-            sb.draw(monkey.getBottomMonkey(), monkey.getPosBottomMonkey().x, monkey.getPosBottomMonkey().y);
         }
-        sb.draw(ground, groundPos1.x, groundPos1.y);
-        sb.draw(ground, groundPos2.x, groundPos2.y);
+
         sb.end();
     }
 
