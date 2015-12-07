@@ -11,7 +11,7 @@ import com.mygdx.game.CyborgChase;
 public class Girl {
     //creating gravity
     private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 100;
+    private static final int MOVEMENT = 200;
     private static final int STARTINGPOS = 200;
     //needs a position, texture, be drawn to screen and needs a velocity
     private Vector3 position;
