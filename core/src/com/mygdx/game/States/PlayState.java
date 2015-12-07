@@ -2,9 +2,12 @@ package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.CyborgChase;
 import com.mygdx.game.Sprites.Girl;
@@ -17,17 +20,23 @@ public class PlayState extends State {
     private static final int MONKEYCOUNT = 4;
     private static final int GROUNDYOFFSET = -50;
     private int i = 0;
+    private int score;
     private Girl girl;
     private Texture bg;
     private Texture ground;
     private Vector2 groundPos1, groundPos2;
     private Array<Monkey> monkeys;
-
+    private Stage stage;
+    private Label label;
+    private BitmapFont font;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         //girl creation & starting position (x,y)
         girl = new Girl(25, 0);
+        score = 0;
+        /*stage = new Stage();
+        label = new Label("Score: " + score, );*/
         //zooms in to display only a portion of the play state -- makes sprite appear larger
         cam.setToOrtho(false, CyborgChase.WIDTH/2, CyborgChase.HEIGHT/2);
         //creating background for play state
@@ -67,6 +76,8 @@ public class PlayState extends State {
             //general forumula for random boundaries: (int)(Math.random() * ((upperbound - lowerbound) + 1) + lowerbound);
             if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + monkey.getTopMonkey().getWidth()) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
+                score = score+1;
+                //System.out.println(score); --- prints score to console
             }
             //if game ends, start new PlayState
             if(monkey.collides(girl.getBounds())){
@@ -90,11 +101,10 @@ public class PlayState extends State {
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
-        sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
         for(Monkey monkey : monkeys) {
             sb.draw(monkey.getTopMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
-
+        sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
         sb.end();
     }
 
