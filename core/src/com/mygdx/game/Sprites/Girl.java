@@ -24,7 +24,7 @@ public class Girl {
     public Girl(int x, int y){
         position = new Vector3(x, STARTINGPOS, 0);
         velocity = new Vector3(0,0,0);
-        girl = new Texture("viv_run_big.png");
+        girl = new Texture("viv.png");
         bounds = new Rectangle(x, y, girl.getWidth(), girl.getHeight());
     }
 
