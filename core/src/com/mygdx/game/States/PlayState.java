@@ -16,7 +16,7 @@ public class PlayState extends State {
     private static final float MONKEYSPACING = 250;
     private static final int MONKEYCOUNT = 4;
     private static final int GROUNDYOFFSET = -50;
-
+    private int i = 0;
     private Girl girl;
     private Texture bg;
     private Texture ground;
@@ -49,6 +49,8 @@ public class PlayState extends State {
     protected void handleInput() {
         if(Gdx.input.justTouched()){
             girl.jump();
+            //counter for animation
+            i++;
         }
     }
 
@@ -56,7 +58,8 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         updateGround();
-        girl.update(dt);
+        //pass in i for animation counter
+        girl.update(dt, i);
         cam.position.x = girl.getPosition().x + 275;
         //what to do with monkey image after it exits left side of screen
         for(int i=0; i < monkeys.size; i++) {
