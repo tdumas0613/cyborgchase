@@ -17,21 +17,24 @@ public class Girl {
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
-
     private Texture girl;
+    private Texture girlJump;
+    private Texture girlReturn;
 
     //constructor
     public Girl(int x, int y){
         position = new Vector3(x, STARTINGPOS, 0);
         velocity = new Vector3(0,0,0);
         girl = new Texture("viv.png");
+        girlReturn = new Texture("viv.png");
+        girlJump = new Texture("vivup.png");
         bounds = new Rectangle(x, y, girl.getWidth(), girl.getHeight());
     }
 
 
 
     //sends delta time to girl class -- allows position to be reset
-    public void update(float dt){
+    public void update(float dt, int i){
         if(position.y > 0) {
             //applies gravity to the y coordinate of sprite position upon update
             velocity.add(0, GRAVITY, 0);
@@ -49,6 +52,13 @@ public class Girl {
         //reverses what we scaled previously so gravity can be applied again on next update
         velocity.scl(1/dt);
         bounds.setPosition(position.x, position.y);
+        //animation
+        if(i % 2 == 0){
+            girl = girlJump;
+        }
+        else{
+            girl = girlReturn;
+        }
     }
 
     public Vector3 getPosition() {
@@ -62,7 +72,8 @@ public class Girl {
     }
 
     public void jump(){
-        velocity.y = 200;
+        velocity.y = 350;
+
     }
     public Rectangle getBounds(){
         return bounds;
