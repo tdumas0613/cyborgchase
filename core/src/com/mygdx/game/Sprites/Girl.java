@@ -12,6 +12,7 @@ public class Girl {
     //creating gravity
     private static final int GRAVITY = -15;
     private static final int MOVEMENT = 100;
+    private static final int STARTINGPOS = 200;
     //needs a position, texture, be drawn to screen and needs a velocity
     private Vector3 position;
     private Vector3 velocity;
@@ -21,7 +22,7 @@ public class Girl {
 
     //constructor
     public Girl(int x, int y){
-        position = new Vector3(x,y, 0);
+        position = new Vector3(x, STARTINGPOS, 0);
         velocity = new Vector3(0,0,0);
         girl = new Texture("viv_run_big.png");
         bounds = new Rectangle(x, y, girl.getWidth(), girl.getHeight());
@@ -61,7 +62,7 @@ public class Girl {
     }
 
     public void jump(){
-        velocity.y = 700;
+        velocity.y = 200;
     }
     public Rectangle getBounds(){
         return bounds;

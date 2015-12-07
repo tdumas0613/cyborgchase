@@ -13,7 +13,7 @@ import com.mygdx.game.Sprites.Monkey;
 
 public class PlayState extends State {
     //distance between each monkey
-    private static final float MONKEYSPACING = 400;
+    private static final float MONKEYSPACING = 250;
     private static final int MONKEYCOUNT = 4;
     private static final int GROUNDYOFFSET = -50;
 
@@ -34,7 +34,7 @@ public class PlayState extends State {
         bg = new Texture("background.png");
         ground = new Texture("land.png");
 
-        //cam.position.x line is probably wrong --- tutorial 12
+
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUNDYOFFSET);
         groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2)+ ground.getWidth(), GROUNDYOFFSET);
 
@@ -69,6 +69,9 @@ public class PlayState extends State {
             if(monkey.collides(girl.getBounds())){
                 gsm.set(new PlayState(gsm));
             }
+            /*if(girl.getPosition().y <= ground.getHeight() + GROUNDYOFFSET){
+                gsm.set(new PlayState(gsm));
+            }*/
         }
         cam.update();
     }
@@ -104,7 +107,6 @@ public class PlayState extends State {
     }
 
     private void updateGround(){
-        //cam.position.x line is probably wrong
         if(cam.position.x > groundPos1.x + ground.getWidth()){
             groundPos1.add(ground.getWidth() * 2, 0);
         }

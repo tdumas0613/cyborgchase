@@ -13,7 +13,7 @@ import javax.xml.soap.Text;
  */
 public class Monkey {
     public static final int MONKEYWIDTH = 75;
-    //private static final int FLUCTUATION = 150;
+    private static final int FLUCTUATION = 300;
     private Texture topMonkey;
     private Vector2 posTopMonkey;
     private Rectangle boundsTop;
@@ -24,7 +24,7 @@ public class Monkey {
         topMonkey = new Texture("monkey.png");
         rand = new Random();
         //topmonkey position varies on the x axis
-        posTopMonkey = new Vector2(x, 0);
+        posTopMonkey = new Vector2(x, rand.nextInt(FLUCTUATION));
         //posTopMonkey = new Vector2(x + 75 + rand.nextInt(FLUCTUATION), 0);
         boundsTop = new Rectangle(posTopMonkey.x, posTopMonkey.y, topMonkey.getWidth(), topMonkey.getHeight());
     }
@@ -40,7 +40,7 @@ public class Monkey {
     }
     //randomly updates position of each monkey in array --- monkeys actually generated in render function of playstate
     public void reposition(float x){
-        posTopMonkey.set(x, 0);
+        posTopMonkey.set(x, rand.nextInt(FLUCTUATION));
         boundsTop.setPosition(posTopMonkey.x, posTopMonkey.y);
 
     }
