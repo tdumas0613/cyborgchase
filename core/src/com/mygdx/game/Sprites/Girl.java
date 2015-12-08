@@ -9,11 +9,10 @@ import com.mygdx.game.CyborgChase;
  * Created by taylordumas on 12/2/15.
  */
 public class Girl {
-    //creating gravity
+
     private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 200;
-    private static final int STARTINGPOS = 200;
-    //needs a position, texture, be drawn to screen and needs a velocity
+    private static final int MOVEMENT = 275;
+    private static final int STARTINGPOS = 300;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -25,10 +24,10 @@ public class Girl {
     public Girl(int x, int y){
         position = new Vector3(x, STARTINGPOS, 0);
         velocity = new Vector3(0,0,0);
-        girl = new Texture("viv.png");
-        girlReturn = new Texture("viv.png");
+        girl = new Texture("vivdown.png");
+        girlReturn = new Texture("vivdown.png");
         girlJump = new Texture("vivup.png");
-        bounds = new Rectangle(x, y, girl.getWidth(), girl.getHeight());
+        bounds = new Rectangle(x, y, girl.getWidth(), 79);
     }
 
 
@@ -72,7 +71,7 @@ public class Girl {
     }
 
     public void jump(){
-        velocity.y = 350;
+        velocity.y = 300;
 
     }
     public Rectangle getBounds(){

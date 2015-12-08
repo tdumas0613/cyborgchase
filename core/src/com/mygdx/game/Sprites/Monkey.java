@@ -23,9 +23,8 @@ public class Monkey {
     public Monkey(float x){
         topMonkey = new Texture("monkey.png");
         rand = new Random();
-        //topmonkey position varies on the x axis
+        //topmonkey position varies on the y axis
         posTopMonkey = new Vector2(x, rand.nextInt(FLUCTUATION));
-        //posTopMonkey = new Vector2(x + 75 + rand.nextInt(FLUCTUATION), 0);
         boundsTop = new Rectangle(posTopMonkey.x, posTopMonkey.y, topMonkey.getWidth(), topMonkey.getHeight());
     }
 
@@ -44,10 +43,14 @@ public class Monkey {
         boundsTop.setPosition(posTopMonkey.x, posTopMonkey.y);
 
     }
+
     public boolean collides(Rectangle player){
+
         return player.overlaps(boundsTop);
     }
+
     public void dispose(){
+
         topMonkey.dispose();
     }
 }
