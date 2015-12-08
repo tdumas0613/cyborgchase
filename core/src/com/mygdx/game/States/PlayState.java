@@ -68,13 +68,17 @@ public class PlayState extends State {
         updateGround();
         //pass in i for animation counter
         girl.update(dt, i);
+        //updating monkey animation within array
+        for(Monkey monkey : monkeys) {
+            monkey.update(dt);
+        }
         cam.position.x = girl.getPosition().x + 275;
         //what to do with monkey image after it exits left side of screen
         for(int i=0; i < monkeys.size; i++) {
             Monkey monkey = monkeys.get(i);
             //if monkey sprite goes off of left side of screen:
                 //reposition monkey to back of line and up the score counter by one
-            if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + monkey.getTopMonkey().getWidth()) {
+            if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + 75) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
                 score = score+1;
                 //System.out.println(score); --- prints score to console
@@ -108,7 +112,7 @@ public class PlayState extends State {
         sb.draw(ground, groundPos2.x, groundPos2.y);
         sb.draw(ground, groundPos3.x, groundPos3.y);
         for(Monkey monkey : monkeys) {
-            sb.draw(monkey.getTopMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
+            sb.draw(monkey.getMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
         sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
         sb.end();
