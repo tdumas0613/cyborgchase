@@ -24,7 +24,7 @@ public class PlayState extends State {
     private Girl girl;
     private Texture bg;
     private Texture ground;
-    private Vector2 groundPos1, groundPos2;
+    private Vector2 groundPos1;
     private Array<Monkey> monkeys;
     private Stage stage;
     private Label label;
@@ -38,15 +38,14 @@ public class PlayState extends State {
         /*stage = new Stage();
         label = new Label("Score: " + score, );*/
         //zooms in to display only a portion of the play state -- makes sprite appear larger
-        cam.setToOrtho(false, CyborgChase.WIDTH/2, CyborgChase.HEIGHT/2);
+        cam.setToOrtho(false, CyborgChase.WIDTH / 2, CyborgChase.HEIGHT / 2);
         //creating background for play state
-        bg = new Texture("background.png");
-        ground = new Texture("land.png");
-
-
-        groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUNDYOFFSET);
-        groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2)+ ground.getWidth(), GROUNDYOFFSET);
-
+        bg = new Texture("smallpark2.png");
+        ground = new Texture("ground.png");
+        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth/2), GROUNDYOFFSET);
+        //groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2)+ ground.getWidth(), GROUNDYOFFSET);
+        //groundPos3 = new Vector2((cam.position.x - cam.viewportWidth / 2)- ground.getWidth()*2, GROUNDYOFFSET);
+        //array of monkeys to be rendered
         monkeys = new Array<Monkey>();
         for(int i = 1; i <= MONKEYCOUNT; i++){
             monkeys.add(new Monkey(i * (MONKEYSPACING + Monkey.MONKEYWIDTH)));
@@ -66,15 +65,20 @@ public class PlayState extends State {
     @Override
     public void update(float dt) {
         handleInput();
-        updateGround();
+        //updateGround();
         //pass in i for animation counter
         girl.update(dt, i);
+        //updating monkey animation within array
+        for(Monkey monkey : monkeys) {
+            monkey.update(dt);
+        }
         cam.position.x = girl.getPosition().x + 275;
         //what to do with monkey image after it exits left side of screen
         for(int i=0; i < monkeys.size; i++) {
             Monkey monkey = monkeys.get(i);
-            //general forumula for random boundaries: (int)(Math.random() * ((upperbound - lowerbound) + 1) + lowerbound);
-            if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + monkey.getTopMonkey().getWidth()) {
+            //if monkey sprite goes off of left side of screen:
+                //reposition monkey to back of line and up the score counter by one
+            if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + 75) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
                 score = score+1;
                 //System.out.println(score); --- prints score to console
@@ -83,9 +87,14 @@ public class PlayState extends State {
             if(monkey.collides(girl.getBounds())){
                 gsm.set(new PlayState(gsm));
             }
-            /*if(girl.getPosition().y <= ground.getHeight() + GROUNDYOFFSET){
+            //floor
+            if(girl.getPosition().y <= 75 + GROUNDYOFFSET){
                 gsm.set(new PlayState(gsm));
-            }*/
+            }
+            //ceiling
+            if((girl.getPosition().y+79) >= CyborgChase.HEIGHT/2){
+                gsm.set(new PlayState(gsm));
+            }
         }
         cam.update();
     }
@@ -99,10 +108,8 @@ public class PlayState extends State {
         sb.begin();
         //drawing background
         sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
-        sb.draw(ground, groundPos1.x, groundPos1.y);
-        sb.draw(ground, groundPos2.x, groundPos2.y);
         for(Monkey monkey : monkeys) {
-            sb.draw(monkey.getTopMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
+            sb.draw(monkey.getMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
         sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
         sb.end();
@@ -117,14 +124,5 @@ public class PlayState extends State {
             monkey.dispose();
         }
         System.out.println("Play State Disposed");
-    }
-
-    private void updateGround(){
-        if(cam.position.x > groundPos1.x + ground.getWidth()){
-            groundPos1.add(ground.getWidth() * 2, 0);
-        }
-        if(cam.position.x > groundPos2.x + ground.getWidth()){
-            groundPos2.add(ground.getWidth() * 2, 0);
-        }
     }
 }
