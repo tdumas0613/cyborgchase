@@ -83,17 +83,13 @@ public class PlayState extends State {
                 score = score+1;
                 //System.out.println(score); --- prints score to console
             }
-            //if game ends, start new PlayState
+            //if game ends, display game over screen
             if(monkey.collides(girl.getBounds())){
                 //If collision with monkey detected send to gameOverScreen
                 gsm.set(new GameOverState(gsm));
-            }
-            //floor
-            if(girl.getPosition().y <= 75 + GROUNDYOFFSET){
-                gsm.set(new PlayState(gsm));
-            }
-            //ceiling
-            if((girl.getPosition().y+79) >= CyborgChase.HEIGHT/2){
+            } if(girl.getPosition().y <= 75 + GROUNDYOFFSET){
+                gsm.set(new GameOverState(gsm));
+            } if((girl.getPosition().y+79) >= CyborgChase.HEIGHT/2){
                 //If collision with ceiling detected send to gameOverScreen
                 gsm.set(new GameOverState(gsm));
             }
