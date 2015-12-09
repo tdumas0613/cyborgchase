@@ -12,7 +12,7 @@ public class GameOverState extends State{
     public GameOverState(GameStateManager gsm) {
         super(gsm);
         //creates tutorial background and a back button
-        background = new Texture("park2.png");
+        background = new Texture("gameoverbackground.png");
         tryAgainBtn = new Texture("playbtn.png");
     }
 
