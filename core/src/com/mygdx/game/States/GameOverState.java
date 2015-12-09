@@ -9,6 +9,7 @@ import com.mygdx.game.CyborgChase;
 public class GameOverState extends State{
     private Texture background;
     private Texture tryAgainBtn;
+
     public GameOverState(GameStateManager gsm) {
         super(gsm);
         //creates tutorial background and a back button

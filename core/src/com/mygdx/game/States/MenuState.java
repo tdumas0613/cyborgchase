@@ -10,6 +10,7 @@ public class MenuState extends State{
     private Texture background;
     private Texture playBtn;
     private Texture tutorialBtn;
+
     public MenuState(GameStateManager gsm) {
         super(gsm);
         //define game background and play button
