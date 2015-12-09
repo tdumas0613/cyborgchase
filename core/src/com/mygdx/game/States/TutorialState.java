@@ -13,8 +13,9 @@ public class TutorialState extends State{
     public TutorialState(GameStateManager gsm) {
         super(gsm);
         //creates tutorial background and a back button
-        background = new Texture("park2.png");
-        backBtn = new Texture("playbtn.png");
+        background = new Texture("tutorialbackground.png");
+
+        //backBtn = new Texture("playbtn.png");
     }
 
 
@@ -23,7 +24,7 @@ public class TutorialState extends State{
 
         //if user touches screen
         if(Gdx.input.justTouched()){
-            gsm.set(new MenuState(gsm));
+            gsm.set(new PlayState(gsm));
             //dispose textures to prevent memory leaks
         }
     }
@@ -39,7 +40,7 @@ public class TutorialState extends State{
         sb.begin();
         sb.draw(background, 0, 0, CyborgChase.WIDTH, CyborgChase.HEIGHT);
         //draws back button in middle of screen
-        sb.draw(backBtn, (CyborgChase.WIDTH/2) - (backBtn.getWidth()/2), CyborgChase.HEIGHT/2);
+        //sb.draw(backBtn, (CyborgChase.WIDTH/2) - (backBtn.getWidth()/2), CyborgChase.HEIGHT/2);
         //closes box
         sb.end();
     }
@@ -48,7 +49,7 @@ public class TutorialState extends State{
     //dispose of background and button object after menu state is left
     public void dispose() {
         background.dispose();
-        backBtn.dispose();
+        //backBtn.dispose();
         System.out.println("Tutorial State Disposed");
     }
 }
