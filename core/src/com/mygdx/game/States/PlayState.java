@@ -85,7 +85,8 @@ public class PlayState extends State {
             }
             //if game ends, start new PlayState
             if(monkey.collides(girl.getBounds())){
-                gsm.set(new PlayState(gsm));
+                //If collision with monkey detected send to gameOverScreen
+                gsm.set(new GameOverState(gsm));
             }
             //floor
             if(girl.getPosition().y <= 75 + GROUNDYOFFSET){
@@ -93,7 +94,8 @@ public class PlayState extends State {
             }
             //ceiling
             if((girl.getPosition().y+79) >= CyborgChase.HEIGHT/2){
-                gsm.set(new PlayState(gsm));
+                //If collision with ceiling detected send to gameOverScreen
+                gsm.set(new GameOverState(gsm));
             }
         }
         cam.update();
@@ -107,7 +109,7 @@ public class PlayState extends State {
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         //drawing background
-        sb.draw(bg, cam.position.x - (cam.viewportWidth/2), 0);
+        sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         for(Monkey monkey : monkeys) {
             sb.draw(monkey.getMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
