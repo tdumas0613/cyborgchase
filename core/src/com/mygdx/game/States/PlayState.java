@@ -2,12 +2,7 @@ package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.CyborgChase;
 import com.mygdx.game.Sprites.Girl;
@@ -20,31 +15,22 @@ public class PlayState extends State {
     private static final int MONKEYCOUNT = 4;
     private static final int GROUNDYOFFSET = -50;
     private int i = 0;
-    private int score;
     private Girl girl;
     private Texture bg;
     private Texture ground;
-    private Vector2 groundPos1;
     private Array<Monkey> monkeys;
-    private Stage stage;
-    private Label label;
-    private BitmapFont font;
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
         //girl creation & starting position (x,y)
         girl = new Girl(25, 0);
-        score = 0;
-        /*stage = new Stage();
-        label = new Label("Score: " + score, );*/
+
+
         //zooms in to display only a portion of the play state -- makes sprite appear larger
         cam.setToOrtho(false, CyborgChase.WIDTH / 2, CyborgChase.HEIGHT / 2);
         //creating background for play state
         bg = new Texture("smallpark2.png");
         ground = new Texture("ground.png");
-        groundPos1 = new Vector2(cam.position.x - (cam.viewportWidth/2), GROUNDYOFFSET);
-        //groundPos2 = new Vector2((cam.position.x - cam.viewportWidth / 2)+ ground.getWidth(), GROUNDYOFFSET);
-        //groundPos3 = new Vector2((cam.position.x - cam.viewportWidth / 2)- ground.getWidth()*2, GROUNDYOFFSET);
         //array of monkeys to be rendered
         monkeys = new Array<Monkey>();
         for(int i = 1; i <= MONKEYCOUNT; i++){
@@ -81,7 +67,7 @@ public class PlayState extends State {
             if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + 75) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
                 score = score+1;
-                //System.out.println(score); --- prints score to console
+                //System.out.println(score);
             }
             //if game ends, display game over screen
             if(monkey.collides(girl.getBounds())){
@@ -123,4 +109,6 @@ public class PlayState extends State {
         }
         System.out.println("Play State Disposed");
     }
+
+
 }

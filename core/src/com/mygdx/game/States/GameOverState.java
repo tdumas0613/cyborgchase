@@ -1,8 +1,10 @@
 package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.CyborgChase;
 
@@ -10,15 +12,18 @@ import com.mygdx.game.CyborgChase;
 public class GameOverState extends State{
     private Texture background;
     private Texture tryAgainBtn;
+    BitmapFont scoreDisplay;
 
     public GameOverState(GameStateManager gsm) {
         super(gsm);
         //readjusting camera
         cam.setToOrtho(false, 1280, 800);
         cam.update();
-        //creates tutorial background and a back button
-        background = new Texture("gameoverbackground.png");
-        //tryAgainBtn = new Texture("playbtn.png");
+        background = new Texture("loserbackground.png");
+        scoreDisplay = new BitmapFont();
+        scoreString = "score: " + this.score;
+        System.out.println("Final Score: " + this.score);
+
     }
 
 
@@ -42,6 +47,8 @@ public class GameOverState extends State{
         //readjusting camera
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, 1280, 800);
+        scoreDisplay.setColor(Color.WHITE);
+        //scoreDisplay.draw(sb, scoreString, (cam.viewportWidth/2), cam.viewportHeight/2);
         //closes box
         sb.end();
     }

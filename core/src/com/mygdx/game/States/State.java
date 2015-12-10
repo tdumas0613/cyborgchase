@@ -11,6 +11,8 @@ public abstract class State {
     protected OrthographicCamera gameOverCam;
     protected Vector3 mouse;
     protected GameStateManager gsm;
+    int score;
+    String scoreString;
 
     protected State(GameStateManager gsm){
         this.gsm = gsm;
@@ -26,5 +28,4 @@ public abstract class State {
     public abstract void render(SpriteBatch sb);
     //disposes of sprites after menu state is left
     public abstract void dispose();
-
 }
