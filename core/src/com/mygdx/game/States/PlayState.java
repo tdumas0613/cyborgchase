@@ -2,6 +2,7 @@ package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.CyborgChase;
@@ -20,13 +21,19 @@ public class PlayState extends State {
     private Texture ground;
     private Array<Monkey> monkeys;
 
+    private String printScore = "Score: ";
+    //CyborgChase game = new CyborgChase();
+    //int monkeyScore = game.getScore();
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
         //girl creation & starting position (x,y)
         girl = new Girl(25, 0);
 
 
+
         //zooms in to display only a portion of the play state -- makes sprite appear larger
+        textCam.setToOrtho(false,CyborgChase.WIDTH / 2, CyborgChase.HEIGHT/2);
         cam.setToOrtho(false, CyborgChase.WIDTH / 2, CyborgChase.HEIGHT / 2);
         //creating background for play state
         bg = new Texture("smallpark2.png");
@@ -48,6 +55,7 @@ public class PlayState extends State {
         }
     }
 
+
     @Override
     public void update(float dt) {
         handleInput();
@@ -66,7 +74,7 @@ public class PlayState extends State {
                 //reposition monkey to back of line and up the score counter by one
             if (cam.position.x - (cam.viewportWidth / 2) > monkey.getPosTopMonkey().x + 75) {
                 monkey.reposition(monkey.getPosTopMonkey().x + ((Monkey.MONKEYWIDTH + MONKEYSPACING) * MONKEYCOUNT));
-                score = score+1;
+                monkeyScore = monkeyScore+1;
                 //System.out.println(score);
             }
             //if game ends, display game over screen
@@ -89,15 +97,28 @@ public class PlayState extends State {
         //objects will move into screen from out of player's scope
         //only draws things camera should be able to see
         sb.setProjectionMatrix(cam.combined);
+        BitmapFont font = new BitmapFont();
         sb.begin();
+
+
+
         //drawing background
         sb.draw(bg, cam.position.x - (cam.viewportWidth / 2), 0);
         for(Monkey monkey : monkeys) {
             sb.draw(monkey.getMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
         sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
+
         sb.end();
+
+        sb.setProjectionMatrix(textCam.combined);
+
+        sb.begin();
+        font.draw(sb, printScore + monkeyScore, 25 ,100);
+        sb.end();
+
     }
+
 
     @Override
     public void dispose() {
@@ -109,6 +130,5 @@ public class PlayState extends State {
         }
         System.out.println("Play State Disposed");
     }
-
 
 }

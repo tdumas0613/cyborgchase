@@ -12,7 +12,10 @@ import com.mygdx.game.CyborgChase;
 public class GameOverState extends State{
     private Texture background;
     private Texture tryAgainBtn;
-    BitmapFont scoreDisplay;
+    BitmapFont font;
+
+
+
 
     public GameOverState(GameStateManager gsm) {
         super(gsm);
@@ -20,9 +23,8 @@ public class GameOverState extends State{
         cam.setToOrtho(false, 1280, 800);
         cam.update();
         background = new Texture("loserbackground.png");
-        scoreDisplay = new BitmapFont();
-        scoreString = "score: " + this.score;
-        System.out.println("Final Score: " + this.score);
+
+        //System.out.println("Final Score: " + this.score);
 
     }
 
@@ -42,15 +44,18 @@ public class GameOverState extends State{
 
     @Override
     public void render(SpriteBatch sb) {
+        BitmapFont font = new BitmapFont();
         //opens box and draws image starting in bottom left hand corner
         sb.begin();
         //readjusting camera
         sb.setProjectionMatrix(cam.combined);
         sb.draw(background, 0, 0, 1280, 800);
-        scoreDisplay.setColor(Color.WHITE);
+
         //scoreDisplay.draw(sb, scoreString, (cam.viewportWidth/2), cam.viewportHeight/2);
         //closes box
         sb.end();
+
+
     }
 
     @Override
