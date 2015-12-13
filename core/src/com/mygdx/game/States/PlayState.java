@@ -2,6 +2,7 @@ package com.mygdx.game.States;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.CyborgChase;
@@ -19,6 +20,8 @@ public class PlayState extends State {
     private Texture bg;
     private Texture ground;
     private Array<Monkey> monkeys;
+    BitmapFont font;
+    private String printScore = "Score: ";
 
     public PlayState(GameStateManager gsm) {
         super(gsm);
@@ -27,7 +30,8 @@ public class PlayState extends State {
 
 
         //zooms in to display only a portion of the play state -- makes sprite appear larger
-        cam.setToOrtho(false, CyborgChase.WIDTH / 2, CyborgChase.HEIGHT / 2);
+        cam.setToOrtho(false,CyborgChase.WIDTH/2, CyborgChase.HEIGHT/2);
+        textCam.setToOrtho(false, CyborgChase.WIDTH / 2, CyborgChase.HEIGHT / 2);
         //creating background for play state
         bg = new Texture("smallpark2.png");
         ground = new Texture("ground.png");
@@ -88,6 +92,7 @@ public class PlayState extends State {
         //adjusts sprite batch to render within scope of the camera set up in PlayState method
         //objects will move into screen from out of player's scope
         //only draws things camera should be able to see
+        BitmapFont font = new BitmapFont();
         sb.setProjectionMatrix(cam.combined);
         sb.begin();
         //drawing background
@@ -96,6 +101,12 @@ public class PlayState extends State {
             sb.draw(monkey.getMonkey(), monkey.getPosTopMonkey().x, monkey.getPosTopMonkey().y);
         }
         sb.draw(girl.getTexture(), girl.getPosition().x, girl.getPosition().y);
+        sb.end();
+
+        sb.setProjectionMatrix(textCam.combined);
+
+        sb.begin();
+        font.draw(sb, printScore + score, 550, 350);
         sb.end();
     }
 

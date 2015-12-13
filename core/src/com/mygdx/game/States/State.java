@@ -9,15 +9,17 @@ public abstract class State {
     //camera dictates how much of game window is viewable on device
     protected OrthographicCamera cam;
     protected OrthographicCamera gameOverCam;
+    protected OrthographicCamera textCam;
     protected Vector3 mouse;
     protected GameStateManager gsm;
-    int score;
+    protected int score;
     String scoreString;
 
     protected State(GameStateManager gsm){
         this.gsm = gsm;
         cam = new OrthographicCamera();
         gameOverCam = new OrthographicCamera();
+        textCam = new OrthographicCamera();
         mouse = new Vector3();
 
 
