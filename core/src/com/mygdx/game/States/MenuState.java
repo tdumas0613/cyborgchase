@@ -15,7 +15,7 @@ public class MenuState extends State{
         super(gsm);
         //define game background and play button
         background = new Texture("homebackground.png");
-        playBtn = new Texture("playbtn.png");
+        //playBtn = new Texture("playbtn.png");
         //link to the tutorial activity
         tutorialBtn = new Texture("playbtn.png");
     }
@@ -43,7 +43,7 @@ public class MenuState extends State{
         sb.begin();
         sb.draw(background, 0, 0, CyborgChase.WIDTH, CyborgChase.HEIGHT);
         //draws play button in middle of screen
-        sb.draw(playBtn, (CyborgChase.WIDTH/2) - (playBtn.getWidth()/2), CyborgChase.HEIGHT/2);
+        //sb.draw(playBtn, (CyborgChase.WIDTH/2) - (playBtn.getWidth()/2), CyborgChase.HEIGHT/2);
         //closes box
         sb.end();
     }
@@ -52,7 +52,7 @@ public class MenuState extends State{
     //dispose of background and button object after menu state is left
     public void dispose() {
         background.dispose();
-        playBtn.dispose();
+        //playBtn.dispose();
         tutorialBtn.dispose();
         System.out.println("Menu State Disposed");
     }
