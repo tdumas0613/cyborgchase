@@ -19,7 +19,7 @@ public class MenuState extends State{
         background = new Texture("menubackgroundtwo.png");
         //playBtn = new Texture("playbtn.png");
         //link to the tutorial activity
-        //tutorialBtn = new Texture("playbtn.png");
+        tutorialBtn = new Texture("playbtn.png");
         startTime = TimeUtils.millis();
     }
 
