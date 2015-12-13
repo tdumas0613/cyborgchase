@@ -21,8 +21,8 @@ public class GameOverState extends State{
         cam.update();
         background = new Texture("loserbackground.png");
         scoreDisplay = new BitmapFont();
-        scoreString = "score: " + this.score;
-        System.out.println("Final Score: " + this.score);
+        scoreString = "score: " + score;
+        System.out.println("Final Score: " + score);
 
     }
 
@@ -59,4 +59,6 @@ public class GameOverState extends State{
         background.dispose();
         System.out.println("Gameover State Disposed");
     }
+
+
 }
