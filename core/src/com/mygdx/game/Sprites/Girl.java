@@ -10,9 +10,9 @@ import com.mygdx.game.CyborgChase;
  */
 public class Girl {
 
-    private static final int GRAVITY = -15;
+    private static final int GRAVITY = -25;
     private static final int MOVEMENT = 275;
-    private static final int STARTINGPOS = 300;
+    private static final int STARTINGPOS = 200;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
